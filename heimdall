@@ -1,0 +1,15 @@
+version: "2.1"
+services:
+  heimdall:
+    image: linuxserver/heimdall:2.5.6
+    container_name: heimdall
+    volumes:
+      - /CHANGE_ME/heimdall:/config          # External storage for config for persistent config storage
+    environment:
+      - PUID=1000                            # Run as the root user
+      - PGID=1000                            # Run as the root user
+      - TZ=Etc/UTC
+    ports:
+      - 80:80                                # Exposes 80 on the instance to the host
+      - 443:443                              # Exposes 443 on the instance to the host
+    restart: unless-stopped
