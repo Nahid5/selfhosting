@@ -1,0 +1,13 @@
+# ignored options for 'filebrowser'
+# -g
+# -)
+version: '3.3'
+services:
+  filebrowser:
+    volumes:
+      - /CHANGE_ME/:/srv                                              # Update the change me to point to what you would like to share out.
+      - /CHANGE_ME/filebrowser.db:/database/filebrowser.db            # External storage for filebrowser's database
+      - /CHANGE_ME/settings.json:/config/settings.json               # External Storage for filebrowser's settings
+    ports:
+      - 10001:80                    # What port to expose on your actual server. So 80 on the docker instance, is 10001 on the server
+    image: filebrowser/filebrowser
