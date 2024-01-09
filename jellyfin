@@ -1,0 +1,24 @@
+---
+version: "2.1"
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Etc/UTC
+    devices:                                                    # Required for hardware acceleration (https://jellyfin.org/docs/general/administration/hardware-acceleration/intel/)
+      - /dev/dri/renderD128:/dev/dri/renderD128                    
+      - /dev/dri/card0:/dev/dri/card0
+    volumes:
+      - /home/ops/jelly:/config                                        # Persistent storage for jellyfin config
+      - /CHANGE_ME:/data/tvshows                      # Where sonarr saves the tv shows
+      - /CHANGE_ME:/data/movies                       # Where radarr saves the movies
+      - /CHANGE_ME:/data/others                       # OPTIONAL, can add additional folders like this, and share other media categories
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    restart: unless-stopped
