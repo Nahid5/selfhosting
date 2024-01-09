@@ -1,0 +1,29 @@
+# Access into the internal network
+---
+version: "2.1"
+services:
+  swag:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - URL=CHANGEME.COM                      # Update to domain you own
+      - VALIDATION=dns
+      - SUBDOMAINS=wildcard, #optional
+      - CERTPROVIDER= #optional
+      - DNSPLUGIN=route53 #optional
+      - PROPAGATION= #optional
+      - EMAIL= #optional
+      - ONLY_SUBDOMAINS=false #optional
+      - EXTRA_DOMAINS= #optional
+      - STAGING=false #optional
+    volumes:
+      - /CHANGEME:/config                      #Persistent config
+    ports:
+      - 40003:443                              #What port to forward on your router. Link external 443 to 40003
+      - 40008:80 #optional
+    restart: unless-stopped
