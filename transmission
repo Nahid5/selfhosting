@@ -1,0 +1,31 @@
+# https://github.com/haugene/docker-transmission-openvpn/
+# Create ovpn profile first (https://github.com/angristan/openvpn-install) then name it default.ovpn. This will be held in the /etc/openvpn/custom/
+version: '3.3'
+services:
+    transmission-openvpn:
+      cap_add:
+        - NET_ADMIN
+      volumes:
+        - /CHANGE_ME/:/etc/openvpn/custom/              # External storage for persistent config
+        - /CHANGE_ME:/data                              # Default download location
+      dns:
+        - 1.1.1.1
+      devices:
+        - /dev/net/tun
+      sysctls:
+        # must enable ipv6 to have njal.la work
+        - net.ipv6.conf.all.disable_ipv6=0
+      environment:                                     # I will be using mullvad (https://mullvad.net/en)
+        - OPENVPN_PROVIDER=CUSTOM
+        - OPENVPN_USERNAME=CHANGE_ME                   # Change to your username          
+        - OPENVPN_PASSWORD=m
+        - LOCAL_NETWORK=192.168.1.0/24                 # Need to allow local network access, or whatever else
+        - HEALTH_CHECK_HOST=google.com
+        - OPENVPN_CONFIG=CHANGE_ME                     # The ovpn profile name
+      ports:
+         - '9091:9091'
+      logging:
+        driver: json-file
+        options:
+          max-size: 10m
+      image: haugene/transmission-openvpn:latest
