@@ -1,3 +1,5 @@
+# For intel GPUs, can check usage with sudo intel_gpu_top
+# Also for intel on ubuntu 22.04, might need to update grub (sudo apt install --install-recommends linux-generic-hwe-22.04), and maybe some other items (sudo apt update && sudo apt install -y jellyfin-ffmpeg5), (sudo apt install -y intel-opencl-icd)
 ---
 version: "2.1"
 services:
