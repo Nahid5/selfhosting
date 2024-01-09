@@ -1,0 +1,14 @@
+# If you have multiple people accessing your servers or want something to track upcomming / popular shows, can use this
+version: '3'
+services:
+    jellyseerr:
+       image: fallenbagel/jellyseerr:latest
+       container_name: jellyseerr
+       environment:
+            - LOG_LEVEL=debug
+            - TZ=Etc/UTC
+       ports:
+            - 5055:5055
+       volumes:
+            - /CHANGE_ME:/app/config                # For persistent config storage
+       restart: unless-stopped
