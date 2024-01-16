@@ -16,6 +16,7 @@ services:
         # must enable ipv6 to have njal.la work
         - net.ipv6.conf.all.disable_ipv6=0
       environment:                                     # I will be using mullvad (https://mullvad.net/en)
+        - TRANSMISSION_DOWNLOAD_DIR=/data/torrents     # Default folder for downloading
         - OPENVPN_PROVIDER=CUSTOM
         - OPENVPN_USERNAME=CHANGE_ME                   # Change to your username          
         - OPENVPN_PASSWORD=m
