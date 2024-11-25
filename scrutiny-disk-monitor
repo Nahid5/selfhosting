@@ -13,7 +13,7 @@ services:
       - /run/udev:/run/udev:ro
       - /CHANGE_ME:/opt/scrutiny/config
       - /CHANGE_ME:/opt/scrutiny/influxdb
-    devices:  # disks to monitor
+    devices:  # disks to monitor, here are examples
       - "/dev/sdb"
       - "/dev/sda"
       - "/dev/sdd"
