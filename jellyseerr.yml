@@ -6,7 +6,7 @@ services:
        container_name: jellyseerr
        environment:
             - LOG_LEVEL=debug
-            - TZ=Etc/UTC
+            - TZ=America/New_York
        ports:
             - 5055:5055
        volumes:
