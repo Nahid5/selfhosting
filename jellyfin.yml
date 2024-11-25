@@ -9,7 +9,7 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /home/ops/jelly:/config                                        # Persistent storage for jellyfin config
+      - /CHANGEA_ME:/config                                        # Persistent storage for jellyfin config
       - /CHANGE_ME:/data/tvshows                      # Where sonarr saves the tv shows
       - /CHANGE_ME:/data/movies                       # Where radarr saves the movies
       - /CHANGE_ME:/data/others                       # OPTIONAL, can add additional folders like this, and share other media categories
