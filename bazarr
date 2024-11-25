@@ -8,9 +8,9 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/config:/config
-      - /path/to/movies:/movies #optional
-      - /path/to/tv:/tv #optional
+      - /CHANGEA_ME:/config
+      - /CHANGEA_ME:/movies #optional
+      - /CHANGEA_ME:/tv #optional
     ports:
       - 6767:6767
     restart: unless-stopped
