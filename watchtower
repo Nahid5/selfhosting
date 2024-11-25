@@ -1,0 +1,19 @@
+version: "3"
+services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      TZ: America/New_York
+      WATCHTOWER_CLEANUP: true # Remove old images after updating
+      WATCHTOWER_REMOVE_VOLUMES: false # Remove attached volumes after updating
+      DOCKER_API_VERSION: 1.41 # SSH docker version 1.41 for Docker engine version 20.10 - 1.43 for Docker engine version 24 - 1.45 for Docker engine version 26.1
+      WATCHTOWER_INCLUDE_RESTARTING: true # Restart containers after update
+      WATCHTOWER_INCLUDE_STOPPED: false # Update stopped containers
+      WATCHTOWER_SCHEDULE: "0 0 3 * * *" # Update & Scan containers at 2:30 am
+      WATCHTOWER_LABEL_ENABLE: false
+      WATCHTOWER_ROLLING_RESTART: true
+      WATCHTOWER_TIMEOUT: 30s
+      WATCHTOWER_LOG_FORMAT: pretty
+    restart: on-failure:5
