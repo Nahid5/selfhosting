@@ -5,8 +5,8 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
-      - PUID=0
-      - PGID=0
+      - PUID=1000
+      - PGID=1000
       - TZ=Etc/UTC
     volumes:
       - /CHANGE_ME:/config                          # Change to a external location for persistent config storage
