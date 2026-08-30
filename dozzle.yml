@@ -3,6 +3,8 @@ services:
   dozzle:
     container_name: dozzle
     image: amir20/dozzle:latest
+#    environment:
+#      - DOZZLE_REMOTE_AGENT=192.168.1.X:7007    # Use if theres multiple systems to connect to the main instance
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
