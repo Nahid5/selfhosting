@@ -1,10 +1,11 @@
+# Assuming you have intel GPU or iGPU https://jellyfin.org/docs/general/post-install/transcoding/hardware-acceleration/intel
 services:
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
     user: 0:0
     group_add:
-      - "993"
+      - "{{ CHANGE ME}}"   # getent group render | cut -d: -f3
     environment:
       - TZ=America/New_York
     volumes:
