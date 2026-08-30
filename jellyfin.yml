@@ -3,7 +3,6 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
-    user: 0:0
     group_add:
       - "{{ CHANGE ME}}"   # getent group render | cut -d: -f3
     environment:
