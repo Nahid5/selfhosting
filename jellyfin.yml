@@ -1,21 +1,19 @@
----
-version: "2.1"
 services:
   jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
+    image: jellyfin/jellyfin:latest
     container_name: jellyfin
+    user: 0:0
+    group_add:
+      - "993"
     environment:
-      - PUID=1000
-      - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /CHANGEA_ME:/config                                        # Persistent storage for jellyfin config
-      - /CHANGE_ME:/data/tvshows                      # Where sonarr saves the tv shows
-      - /CHANGE_ME:/data/movies                       # Where radarr saves the movies
-      - /CHANGE_ME:/data/others                       # OPTIONAL, can add additional folders like this, and share other media categories
+      - {{ CHANGE ME }}:/config
+      - {{ CHANGE ME }}:/data/tvshows
+      - {{ CHANGE ME }}:/data/movies
+      - {{ CHANGE ME }}:/transcode
+    devices:
+      - /dev/dri:/dev/dri  # Pass through the Intel iGPU
     ports:
       - 8096:8096
-      - 8920:8920 #optional
-      - 7359:7359/udp #optional
-      - 1900:1900/udp #optional
     restart: unless-stopped
