@@ -1,0 +1,58 @@
+# Mullvad VPN + Torrents
+services:
+  gluetun:
+    image: qmcgaw/gluetun:v3.41.0
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - DNS_SERVER=on
+      - HEALTH_TARGET_ADDRESSES=cloudflare.com:443,ipinfo.io:443
+      - HEALTH_RESTART_VPN=on
+      - TZ=America/New_York
+      - VPN_SERVICE_PROVIDER=mullvad
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY={{ CHANGE ME }}      # Download config from mullvad and fill these fields
+      - WIREGUARD_ADDRESSES={{ CHANGE ME }}
+      - SERVER_COUNTRIES={{ CHANGE ME }}
+      - SERVER_CITIES={{ CHANGE ME }}
+      - BLOCK_MALICIOUS=off
+      - BLOCK_SURVEILLANCE=off
+      - BLOCK_ADS=off
+      - DOT=off
+    volumes: # glutun settings
+      - {{ CHANGE ME }}:/gluetun
+    ports: # Ports accessible to local interface
+      - 8889:8888/tcp # HTTP proxy
+      - 8388:8388/tcp # Shadowsocks
+      - 8388:8388/udp # Shadowsocks
+      - 8080:8080/tcp
+      - 9091:9091 # Transmission interface port
+      - 51413:51413/tcp     # Torrent Peer Port (TCP)
+      - 51413:51413/udp # Torrent Peer Port (UDP)
+      - 9092:9092 # Transmission-prn interface port
+      - 51414:51414/tcp     # Torrent Peer Port (TCP)
+      - 51414:51414/udp # Torrent Peer Port (UDP)
+    restart: unless-stopped
+    
+  transmission:
+    image: lscr.io/linuxserver/transmission
+    container_name: transmission
+    labels:
+      - com.centurylinklabs.watchtower.enable=false
+    network_mode: "container:gluetun"    # Important to have, so stack uses outbound connection from glutun container
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      - TZ=America/New_York
+      - TRANSMISSION_BIND_ADDRESS_IPV4=0.0.0.0  # Force bind to any available IP
+      - TRANSMISSION_RPC_BIND_ADDRESS=0.0.0.0   # Ensure UI is accessible
+    volumes:
+      - {{ CHANGE ME }}/config:/config  # Config
+      - {{ CHANGE ME }}:/downloads # Where to save downloaded torrents
+      - {{ CHANGE ME }}:/data  # Info on torrents
+      #- /path/to/watch/folder:/watch
+    restart: unless-stopped
