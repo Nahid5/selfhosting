@@ -1,3 +1,4 @@
+# Subtitles
 ---
 services:
   bazarr:
@@ -8,9 +9,9 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /CHANGEA_ME:/config
-      - /CHANGEA_ME:/movies #optional
-      - /CHANGEA_ME:/tv #optional
+      - {{ CHANGE ME }}:/config
+      - {{ CHANGE ME }}:/movies #optional
+      - {{ CHANGE ME }}:/tv #optional
     ports:
       - 6767:6767
     restart: unless-stopped
