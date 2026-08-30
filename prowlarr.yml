@@ -1,15 +1,33 @@
----
-version: "2.1"
+# For arr stack. byparr is to help bypass captcha for apps used by prowlarr
 services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
+      - PUID=1000 # Change to your user ID
+      - PGID=1000 # Change to your group ID
+      - TZ=Etc/UTC # Change to your timezone
     volumes:
-      - /CHANGE_ME:/config                          # Change to a external location for persistent config storage
+      - {{ CHANGE ME }}:/config # Adjust path to your system
     ports:
       - 9696:9696
     restart: unless-stopped
+    networks:
+      - media-network
+
+  byparr:
+    image: ghcr.io/thephaseless/byparr:latest
+    container_name: byparr
+    init: true # Required for handling zombie processes in Byparr
+    environment:
+      - LOG_LEVEL=INFO
+    # Optional: Ports only needed if you want to access Byparr docs from your browser
+    ports:
+      - 8191:8191 
+    restart: unless-stopped
+    networks:
+      - media-network
+
+networks:
+  media-network:
+    driver: bridge
