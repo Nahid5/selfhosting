@@ -14,7 +14,7 @@ services:
       - {{ CHANGE ME }}:/data/movies
       - {{ CHANGE ME }}:/transcode
     devices:
-      - /dev/dri:/dev/dri  # Pass through the Intel iGPU
+      - /dev/dri:/dev/dri  # Pass through the Intel iGPU, Remove and replace if you dont have intel GPU
     ports:
       - 8096:8096
     restart: unless-stopped
