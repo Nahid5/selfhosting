@@ -1,10 +1,11 @@
+# Web UI for orgnization of apps
 version: "2.1"
 services:
   heimdall:
     image: linuxserver/heimdall:2.5.6
     container_name: heimdall
     volumes:
-      - /CHANGE_ME/heimdall:/config          # External storage for config for persistent config storage
+      - {{ CHANGE ME }}:/config          # External storage for config for persistent config storage
     environment:
       - PUID=1000                            # Run as the root user
       - PGID=1000                            # Run as the root user
