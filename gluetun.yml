@@ -42,7 +42,7 @@ services:
     container_name: transmission
     labels:
       - com.centurylinklabs.watchtower.enable=false
-    network_mode: "service:gluetun"    # Important to have, so stack uses outbound connection from glutun container
+    network_mode: "container:gluetun"    # Important to have, so stack uses outbound connection from glutun container
     depends_on:
       gluetun:
         condition: service_healthy
